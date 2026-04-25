@@ -1,36 +1,81 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# English Sentence Analyzer
 
-## Getting Started
+英文句子结构分析工具 - 帮助程序员阅读和理解英文技术文档。
 
-First, run the development server:
+## 功能特点
+
+- **句子分析** - 输入英文长难句，快速获取语法成分拆解
+- **结构可视化** - 清晰展示主语、谓语、宾语、补语等句子成分
+- **短语/从句分析** - 识别介词短语、不定式、动名词等结构
+- **中文翻译** - 提供完整的中文翻译
+- **词汇表** - 自动提取技术词汇，方便学习
+
+## 技术栈
+
+- **框架**: Next.js 16 (App Router)
+- **语言**: TypeScript
+- **样式**: Tailwind CSS v4 + shadcn/ui
+- **AI**: DeepSeek API (通过 OpenAI SDK)
+- **验证**: Zod v4
+- **动画**: Framer Motion
+
+## 快速开始
 
 ```bash
-npm run dev
-# or
-yarn dev
-# or
+# 安装依赖
+pnpm install
+
+# 启动开发服务器
 pnpm dev
-# or
-bun dev
+
+# 构建生产版本
+pnpm build
+
+# 类型检查
+pnpm exec tsc --noEmit
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## 环境变量
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+需要在 `.env.local` 文件中配置:
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+```bash
+DEEPSEEK_API_KEY=your_api_key_here
+```
 
-## Learn More
+## 项目结构
 
-To learn more about Next.js, take a look at the following resources:
+```
+src/
+├── app/
+│   ├── api/parse-sentence/    # API 路由
+│   ├── globals.css            # 全局样式
+│   ├── layout.tsx             # 根布局
+│   └── page.tsx               # 首页
+├── components/
+│   └── parser/                # 分析器组件
+│       ├── parser-page.tsx    # 主页面
+│       ├── sentence-input.tsx  # 输入框
+│       ├── analysis-reveal.tsx # 结果展示
+│       ├── parse-tree.tsx     # 句式结构
+│       ├── phrase-section.tsx  # 短语分析
+│       ├── clause-section.tsx  # 从句分析
+│       └── vocabulary-section.tsx # 词汇表
+├── hooks/
+│   └── use-parser.ts          # 解析 Hook
+├── lib/
+│   └── deepseek.ts            # DeepSeek 客户端
+└── types/
+    └── parser.ts              # 类型定义
+```
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## 使用方法
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+1. 在输入框中输入英文句子
+2. 按 Enter 或点击"分析"按钮
+3. 查看分析结果:
+   - **句式结构**: 主语、谓语、宾语、补语
+   - **短语分析**: 介词短语、不定式等
+   - **从句分析**: 主句、从句等
+   - **中文翻译**: 完整中文翻译
+   - **词汇表**: 技术词汇释义
