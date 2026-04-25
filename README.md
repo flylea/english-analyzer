@@ -1,81 +1,81 @@
 # English Sentence Analyzer
 
-英文句子结构分析工具 - 帮助程序员阅读和理解英文技术文档。
+A web application that helps programmers read and understand English technical documentation by analyzing sentence structure.
 
-## 功能特点
+## Features
 
-- **句子分析** - 输入英文长难句，快速获取语法成分拆解
-- **结构可视化** - 清晰展示主语、谓语、宾语、补语等句子成分
-- **短语/从句分析** - 识别介词短语、不定式、动名词等结构
-- **中文翻译** - 提供完整的中文翻译
-- **词汇表** - 自动提取技术词汇，方便学习
+- **Sentence Analysis** - Input long English sentences and get instant grammar breakdown
+- **Structure Visualization** - Clear display of subject, verb, object, complement
+- **Phrase/Clause Analysis** - Identify prepositional phrases, infinitives, gerunds, etc.
+- **Chinese Translation** - Complete translation of the sentence
+- **Vocabulary List** - Automatically extract technical terms for learning
 
-## 技术栈
+## Tech Stack
 
-- **框架**: Next.js 16 (App Router)
-- **语言**: TypeScript
-- **样式**: Tailwind CSS v4 + shadcn/ui
-- **AI**: DeepSeek API (通过 OpenAI SDK)
-- **验证**: Zod v4
-- **动画**: Framer Motion
+- **Framework**: Next.js 16 (App Router)
+- **Language**: TypeScript
+- **Styling**: Tailwind CSS v4 + shadcn/ui
+- **AI**: DeepSeek API (via OpenAI SDK)
+- **Validation**: Zod v4
+- **Animation**: Framer Motion
 
-## 快速开始
+## Getting Started
 
 ```bash
-# 安装依赖
+# Install dependencies
 pnpm install
 
-# 启动开发服务器
+# Start development server
 pnpm dev
 
-# 构建生产版本
+# Build for production
 pnpm build
 
-# 类型检查
+# Type check
 pnpm exec tsc --noEmit
 ```
 
-## 环境变量
+## Environment Variables
 
-需要在 `.env.local` 文件中配置:
+Configure in `.env.local`:
 
 ```bash
 DEEPSEEK_API_KEY=your_api_key_here
 ```
 
-## 项目结构
+## Project Structure
 
 ```
 src/
 ├── app/
-│   ├── api/parse-sentence/    # API 路由
-│   ├── globals.css            # 全局样式
-│   ├── layout.tsx             # 根布局
-│   └── page.tsx               # 首页
+│   ├── api/parse-sentence/    # API routes
+│   ├── globals.css            # Global styles
+│   ├── layout.tsx             # Root layout
+│   └── page.tsx               # Home page
 ├── components/
-│   └── parser/                # 分析器组件
-│       ├── parser-page.tsx    # 主页面
-│       ├── sentence-input.tsx  # 输入框
-│       ├── analysis-reveal.tsx # 结果展示
-│       ├── parse-tree.tsx     # 句式结构
-│       ├── phrase-section.tsx  # 短语分析
-│       ├── clause-section.tsx  # 从句分析
-│       └── vocabulary-section.tsx # 词汇表
+│   └── parser/                # Parser components
+│       ├── parser-page.tsx    # Main page
+│       ├── sentence-input.tsx  # Input field
+│       ├── analysis-reveal.tsx # Results display
+│       ├── parse-tree.tsx     # Sentence structure
+│       ├── phrase-section.tsx  # Phrase analysis
+│       ├── clause-section.tsx  # Clause analysis
+│       └── vocabulary-section.tsx # Vocabulary list
 ├── hooks/
-│   └── use-parser.ts          # 解析 Hook
+│   └── use-parser.ts          # Parser hook
 ├── lib/
-│   └── deepseek.ts            # DeepSeek 客户端
+│   └── deepseek.ts            # DeepSeek client
 └── types/
-    └── parser.ts              # 类型定义
+    └── parser.ts              # Type definitions
 ```
 
-## 使用方法
+## Usage
 
-1. 在输入框中输入英文句子
-2. 按 Enter 或点击"分析"按钮
-3. 查看分析结果:
-   - **句式结构**: 主语、谓语、宾语、补语
-   - **短语分析**: 介词短语、不定式等
-   - **从句分析**: 主句、从句等
-   - **中文翻译**: 完整中文翻译
-   - **词汇表**: 技术词汇释义
+1. Enter an English sentence in the input field
+2. Press Enter or click "Analyze"
+3. View analysis results:
+   - **Sentence Structure**: Subject, verb, object, complement
+   - **Phrase Analysis**: Prepositional phrases, infinitives, etc.
+   - **Clause Analysis**: Main clause, subordinate clauses, etc.
+   - **Chinese Translation**: Full translation
+   - **Vocabulary**: Technical terms with definitions
