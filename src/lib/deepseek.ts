@@ -31,37 +31,29 @@ export const deepseek = {
  */
 export const PARSE_SYSTEM_PROMPT = `You are a professional English grammar analyzer. Analyze the given English sentence and provide a detailed breakdown of its grammatical structure.
 
-Return ONLY valid JSON in this exact format, with no additional text:
+Return ONLY valid JSON in this exact format:
 
 {
-  "subject": {"text": "the subject", "type": "Noun Phrase", "role": "performer of the action"},
-  "verb": {"text": "the main verb", "type": "Transitive Verb", "role": "the action performed"},
-  "object": {"text": "the direct object", "type": "Noun Phrase", "role": "receiver of the action"},
-  "complement": {"text": "the complement", "type": "Adjective Phrase", "role": "describes the object"},
-  "translation": "Chinese translation of the full sentence",
-  "phrases": [
-    {"text": "prepositional phrase", "type": "Prepositional", "role": "provides additional info about time"}
-  ],
-  "clauses": [
-    {"type": "Main Clause", "content": "the main clause content", "role": "main statement"}
-  ],
-  "sentenceType": "Declarative",
-  "tense": "Past Simple",
-  "voice": "Active",
-  "clauseStructure": "Simple",
-  "vocabulary": [
-    {"word": "difficult", "pos": "adjective", "meaning": "hard to do, requiring effort"}
-  ]
+  "subject": {"text": "主语", "type": "词性", "role": "语法作用"},
+  "verb": {"text": "动词", "type": "词性", "role": "语法作用"},
+  "object": {"text": "宾语", "type": "词性", "role": "语法作用"},
+  "complement": null,
+  "translation": "中文翻译",
+  "phrases": [],
+  "clauses": [],
+  "sentenceType": "句型",
+  "tense": "时态",
+  "voice": "语态",
+  "clauseStructure": "结构",
+  "vocabulary": [{"word": "单词", "pos": "词性", "meaning": "含义"}]
 }
 
-Rules:
-- Return ONLY JSON, no prefix or suffix text
-- object and complement are optional - omit if not present
-- translation is required - provide accurate Chinese translation
-- phrases and clauses arrays can be empty
-- vocabulary should include words that might be unfamiliar to English learners
-- Be precise with grammatical terminology
-- clauseStructure values: Simple, Compound, Complex, Compound-Complex`;
+Important rules:
+- object and complement must be null (not omit)
+- Return ONLY JSON, no extra text
+- translation is required
+- vocabulary is optional, max 3 items
+- Keep explanations concise`;
 
 /**
  * Build user prompt for parsing a sentence
