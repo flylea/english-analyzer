@@ -71,7 +71,7 @@ const SentenceInput = ({ value, onChange, onSubmit, onClear, isLoading, hasResul
         />
 
         {/* Bottom bar */}
-        <div className="flex items-center justify-between mt-4 pt-4 border-t border-border">
+        <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between mt-4 pt-4 border-t border-border gap-3">
           <div className="flex items-center gap-3">
             <span className={`text-xs ${value.length > 200 ? "text-destructive" : "text-muted-foreground"}`}>
               {value.length} / 200
