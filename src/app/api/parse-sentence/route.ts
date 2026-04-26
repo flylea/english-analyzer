@@ -6,7 +6,7 @@ import {
 } from "@/types/parser";
 
 export const runtime = "nodejs";
-export const maxDuration = 30;
+export const maxDuration = 120;
 
 export async function POST(req: NextRequest) {
   // 1. Parse and validate request body
@@ -29,15 +29,13 @@ export async function POST(req: NextRequest) {
   let rawResponse: string;
 
   try {
-    // @ts-expect-error - thinking/reasoning_effort are DeepSeek-specific params
     const completion = await deepseek.client.chat.completions.create({
       model: "deepseek-v4-pro",
       messages: [
         { role: "system", content: PARSE_SYSTEM_PROMPT },
         { role: "user", content: buildParsePrompt(sentence) },
       ] as const,
-      thinking: { type: "enabled" as const },
-      reasoning_effort: "high" as const,
+      reasoning_effort: "low" as const,
       stream: false as const,
       temperature: 0.1,
     });
@@ -52,7 +50,7 @@ export async function POST(req: NextRequest) {
     );
   }
 
-  // 3. Parse and validate response with Zod
+  // 3. Parse and normalize DeepSeek response
   let parsedResponse: unknown;
 
   try {
@@ -70,6 +68,43 @@ export async function POST(req: NextRequest) {
     );
   }
 
+  // Normalize DeepSeek response: map `function` -> `role`, `text` -> `content` for clauses
+  if (parsedResponse && typeof parsedResponse === "object") {
+    const normalize = (obj: Record<string, unknown>): Record<string, unknown> => {
+      const result: Record<string, unknown> = { ...obj };
+      if (Array.isArray(result.phrases)) {
+        result.phrases = result.phrases.map((p: Record<string, unknown>) => {
+          const phrase = { ...p };
+          if ("function" in phrase) {
+            phrase.role = phrase.function;
+            delete phrase.function;
+          }
+          return phrase;
+        });
+      }
+      if (Array.isArray(result.clauses)) {
+        result.clauses = result.clauses.map((c: Record<string, unknown>) => {
+          const clause: Record<string, unknown> = { ...c };
+          if ("function" in clause) {
+            clause.role = clause.function;
+            delete clause.function;
+          }
+          if ("structure" in clause && typeof clause.structure === "string") {
+            clause.role = clause.structure;
+          }
+          delete clause.structure;
+          if ("text" in clause) {
+            clause.content = clause.text;
+            delete clause.text;
+          }
+          return clause;
+        });
+      }
+      return result;
+    };
+    parsedResponse = normalize(parsedResponse as Record<string, unknown>);
+  }
+
   const validationResult = ParseSentenceResponseSchema.safeParse(
     parsedResponse
   );
@@ -82,7 +117,7 @@ export async function POST(req: NextRequest) {
       parsedResponse
     );
     return NextResponse.json(
-      { error: "Response validation failed", details: validationResult.error.flatten() },
+      { error: "Response validation failed", details: validationResult.error.flatten(), raw: rawResponse },
       { status: 502 }
     );
   }
