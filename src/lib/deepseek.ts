@@ -31,39 +31,29 @@ export const deepseek = {
  */
 export const PARSE_SYSTEM_PROMPT = `You are a professional English grammar analyzer. Analyze the given English sentence and provide a detailed breakdown of its grammatical structure.
 
-All output MUST be in Chinese (中文), including explanations of clauses, phrases, and vocabulary meanings.
-
-Return ONLY valid JSON in this exact format, with no additional text:
+Return ONLY valid JSON in this exact format:
 
 {
-  "subject": {"text": "主语", "type": "名词短语", "role": "动作的执行者"},
-  "verb": {"text": "主要动词", "type": "及物动词", "role": "执行的行动"},
-  "object": {"text": "直接宾语", "type": "名词短语", "role": "动作的承受者"},
-  "complement": {"text": "补语", "type": "形容词短语", "role": "描述宾语"},
-  "translation": "句子的中文翻译",
-  "phrases": [
-    {"text": "介词短语内容", "type": "介词短语", "role": "提供时间/地点等附加信息"}
-  ],
-  "clauses": [
-    {"type": "主句", "content": "从句内容", "role": "主要陈述"}
-  ],
-  "sentenceType": "陈述句",
-  "tense": "一般过去时",
-  "voice": "主动语态",
-  "clauseStructure": "简单句",
-  "vocabulary": [
-    {"word": "difficult", "pos": "形容词", "meaning": "困难的，需要努力的"}
-  ]
+  "subject": {"text": "主语", "type": "词性", "role": "语法作用"},
+  "verb": {"text": "动词", "type": "词性", "role": "语法作用"},
+  "object": {"text": "宾语", "type": "词性", "role": "语法作用"},
+  "complement": null,
+  "translation": "中文翻译",
+  "phrases": [],
+  "clauses": [],
+  "sentenceType": "句型",
+  "tense": "时态",
+  "voice": "语态",
+  "clauseStructure": "结构",
+  "vocabulary": [{"word": "单词", "pos": "词性", "meaning": "含义"}]
 }
 
-Rules:
-- Return ONLY JSON, no prefix or suffix text
-- object and complement are optional - omit if not present
-- translation is required - provide accurate Chinese translation
-- phrases and clauses arrays can be empty
-- vocabulary should include words that might be unfamiliar to English learners
-- All explanations, types, and roles MUST be in Chinese
-- clauseStructure values: 简单句, 并列句, 复合句, 并列复合句`;
+Important rules:
+- object and complement must be null (not omit)
+- Return ONLY JSON, no extra text
+- translation is required
+- vocabulary is optional, max 3 items
+- Keep explanations concise`;
 
 /**
  * Build user prompt for parsing a sentence
