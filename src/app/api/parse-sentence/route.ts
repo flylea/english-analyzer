@@ -29,15 +29,14 @@ export async function POST(req: NextRequest) {
   let rawResponse: string;
 
   try {
-    // @ts-expect-error - thinking/reasoning_effort are DeepSeek-specific params
+    // @ts-expect-error - reasoning_effort is a DeepSeek-specific param
     const completion = await deepseek.client.chat.completions.create({
       model: "deepseek-v4-pro",
       messages: [
         { role: "system", content: PARSE_SYSTEM_PROMPT },
         { role: "user", content: buildParsePrompt(sentence) },
       ] as const,
-      thinking: { type: "enabled" as const },
-      reasoning_effort: "high" as const,
+      reasoning_effort: "low" as const,
       stream: false as const,
       temperature: 0.1,
     });
