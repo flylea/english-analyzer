@@ -80,7 +80,7 @@ export async function POST(req: NextRequest) {
       parsedResponse
     );
     return NextResponse.json(
-      { error: "Response validation failed", details: validationResult.error.flatten() },
+      { error: "Response validation failed", details: validationResult.error.flatten(), raw: rawResponse },
       { status: 502 }
     );
   }
