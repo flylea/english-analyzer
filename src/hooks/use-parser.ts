@@ -12,10 +12,10 @@ type ParserState =
   | { status: "success"; data: ParseSentenceResponse & { _input: string } }
   | { status: "error"; message: string };
 
-export function useParser() {
+const useParser = () => {
   const [state, setState] = useState<ParserState>({ status: "idle" });
 
-  async function parse(sentence: string) {
+  const parse = async (sentence: string) => {
     setState({ status: "loading" });
 
     try {
@@ -44,11 +44,13 @@ export function useParser() {
     } catch {
       setState({ status: "error", message: "网络错误，请检查连接后重试" });
     }
-  }
+  };
 
-  function reset() {
+  const reset = () => {
     setState({ status: "idle" });
-  }
+  };
 
   return { state, parse, reset };
-}
+};
+
+export { useParser };
