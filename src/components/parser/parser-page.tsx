@@ -98,7 +98,7 @@ const LoadingState = () => (
           key={i}
           initial={{ opacity: 0, y: 10 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: i * 50, duration: 0.2 }}
+          transition={{ delay: 0, duration: 0.2 }}
           className="bg-card rounded-lg border border-border p-6 shadow-sm space-y-3"
         >
           <div className="animate-shimmer h-3 rounded w-16" />
