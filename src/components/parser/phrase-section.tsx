@@ -18,16 +18,16 @@ const phraseTypeColors: Record<string, { color: string; bg: string }> = {
   "default": { color: "#64748b", bg: "#f1f5f9" },        // slate
 };
 
-function getPhraseColor(type: string) {
+const getPhraseColor = (type: string) => {
   for (const key of Object.keys(phraseTypeColors)) {
     if (type.toLowerCase().includes(key.toLowerCase())) {
       return phraseTypeColors[key];
     }
   }
   return phraseTypeColors.default;
-}
+};
 
-export function PhraseSection({ phrases }: PhraseSectionProps) {
+const PhraseSection = ({ phrases }: PhraseSectionProps) => {
   const [expanded, setExpanded] = useState<number | null>(null);
 
   return (
@@ -119,4 +119,6 @@ export function PhraseSection({ phrases }: PhraseSectionProps) {
       </div>
     </motion.div>
   );
-}
+};
+
+export { PhraseSection };

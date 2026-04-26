@@ -5,7 +5,7 @@ import { useParser } from "@/hooks/use-parser";
 import { SentenceInput } from "@/components/parser/sentence-input";
 import { AnalysisReveal } from "@/components/parser/analysis-reveal";
 
-export function ParserPage() {
+const ParserPage = () => {
   const { state, parse, reset } = useParser();
 
   return (
@@ -73,60 +73,58 @@ export function ParserPage() {
       </div>
     </main>
   );
-}
+};
 
-function LoadingState() {
-  return (
-    <motion.section
-      initial={{ opacity: 0 }}
-      animate={{ opacity: 1 }}
-      exit={{ opacity: 0 }}
-      transition={{ duration: 0.2 }}
-      className="space-y-6"
-    >
-      {/* Sentence skeleton */}
-      <div className="bg-card rounded-lg border border-border p-6 shadow-sm">
-        <div className="animate-shimmer h-6 rounded w-3/4 mb-3" />
-        <div className="animate-shimmer h-4 rounded w-1/2" />
-      </div>
+const LoadingState = () => (
+  <motion.section
+    initial={{ opacity: 0 }}
+    animate={{ opacity: 1 }}
+    exit={{ opacity: 0 }}
+    transition={{ duration: 0.2 }}
+    className="space-y-6"
+  >
+    {/* Sentence skeleton */}
+    <div className="bg-card rounded-lg border border-border p-6 shadow-sm">
+      <div className="animate-shimmer h-6 rounded w-3/4 mb-3" />
+      <div className="animate-shimmer h-4 rounded w-1/2" />
+    </div>
 
-      {/* Parse skeleton */}
-      <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
-        {[0, 1, 2].map((i) => (
-          <motion.div
-            key={i}
-            initial={{ opacity: 0, y: 10 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: i * 50, duration: 0.2 }}
-            className="bg-card rounded-lg border border-border p-6 shadow-sm space-y-3"
-          >
-            <div className="animate-shimmer h-3 rounded w-16" />
-            <div className="animate-shimmer h-6 rounded w-full" />
-            <div className="animate-shimmer h-3 rounded w-24" />
-          </motion.div>
-        ))}
-      </div>
-    </motion.section>
-  );
-}
+    {/* Parse skeleton */}
+    <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
+      {[0, 1, 2].map((i) => (
+        <motion.div
+          key={i}
+          initial={{ opacity: 0, y: 10 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: i * 50, duration: 0.2 }}
+          className="bg-card rounded-lg border border-border p-6 shadow-sm space-y-3"
+        >
+          <div className="animate-shimmer h-3 rounded w-16" />
+          <div className="animate-shimmer h-6 rounded w-full" />
+          <div className="animate-shimmer h-3 rounded w-24" />
+        </motion.div>
+      ))}
+    </div>
+  </motion.section>
+);
 
-function ErrorState({ message }: { message: string }) {
-  return (
-    <motion.div
-      initial={{ opacity: 0, y: 20 }}
-      animate={{ opacity: 1, y: 0 }}
-      exit={{ opacity: 0 }}
-      transition={{ duration: 0.2 }}
-      className="bg-card rounded-lg border border-destructive/30 p-8 text-center shadow-sm"
-    >
-      <div className="w-10 h-10 rounded-full bg-destructive/10 flex items-center justify-center mx-auto mb-4">
-        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" className="text-destructive">
-          <circle cx="12" cy="12" r="10" />
-          <line x1="12" y1="8" x2="12" y2="12" />
-          <line x1="12" y1="16" x2="12.01" y2="16" />
-        </svg>
-      </div>
-      <p className="text-sm text-muted-foreground">{message}</p>
-    </motion.div>
-  );
-}
+const ErrorState = ({ message }: { message: string }) => (
+  <motion.div
+    initial={{ opacity: 0, y: 20 }}
+    animate={{ opacity: 1, y: 0 }}
+    exit={{ opacity: 0 }}
+    transition={{ duration: 0.2 }}
+    className="bg-card rounded-lg border border-destructive/30 p-8 text-center shadow-sm"
+  >
+    <div className="w-10 h-10 rounded-full bg-destructive/10 flex items-center justify-center mx-auto mb-4">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" className="text-destructive">
+        <circle cx="12" cy="12" r="10" />
+        <line x1="12" y1="8" x2="12" y2="12" />
+        <line x1="12" y1="16" x2="12.01" y2="16" />
+      </svg>
+    </div>
+    <p className="text-sm text-muted-foreground">{message}</p>
+  </motion.div>
+);
+
+export { ParserPage };

@@ -8,7 +8,7 @@ interface TypewriterTextProps {
   speed?: number;
 }
 
-export function TypewriterText({ text, className, speed = 30 }: TypewriterTextProps) {
+const TypewriterText = ({ text, className, speed = 30 }: TypewriterTextProps) => {
   const containerRef = useRef<HTMLSpanElement>(null);
   const indexRef = useRef(0);
   const intervalRef = useRef<ReturnType<typeof setInterval> | null>(null);
@@ -71,4 +71,6 @@ export function TypewriterText({ text, className, speed = 30 }: TypewriterTextPr
   }, [text, speed]);
 
   return <span ref={containerRef} className={className} />;
-}
+};
+
+export { TypewriterText };

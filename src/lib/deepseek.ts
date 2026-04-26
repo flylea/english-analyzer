@@ -31,26 +31,28 @@ export const deepseek = {
  */
 export const PARSE_SYSTEM_PROMPT = `You are a professional English grammar analyzer. Analyze the given English sentence and provide a detailed breakdown of its grammatical structure.
 
+All output MUST be in Chinese (中文), including explanations of clauses, phrases, and vocabulary meanings.
+
 Return ONLY valid JSON in this exact format, with no additional text:
 
 {
-  "subject": {"text": "the subject", "type": "Noun Phrase", "role": "performer of the action"},
-  "verb": {"text": "the main verb", "type": "Transitive Verb", "role": "the action performed"},
-  "object": {"text": "the direct object", "type": "Noun Phrase", "role": "receiver of the action"},
-  "complement": {"text": "the complement", "type": "Adjective Phrase", "role": "describes the object"},
-  "translation": "Chinese translation of the full sentence",
+  "subject": {"text": "主语", "type": "名词短语", "role": "动作的执行者"},
+  "verb": {"text": "主要动词", "type": "及物动词", "role": "执行的行动"},
+  "object": {"text": "直接宾语", "type": "名词短语", "role": "动作的承受者"},
+  "complement": {"text": "补语", "type": "形容词短语", "role": "描述宾语"},
+  "translation": "句子的中文翻译",
   "phrases": [
-    {"text": "prepositional phrase", "type": "Prepositional", "role": "provides additional info about time"}
+    {"text": "介词短语内容", "type": "介词短语", "role": "提供时间/地点等附加信息"}
   ],
   "clauses": [
-    {"type": "Main Clause", "content": "the main clause content", "role": "main statement"}
+    {"type": "主句", "content": "从句内容", "role": "主要陈述"}
   ],
-  "sentenceType": "Declarative",
-  "tense": "Past Simple",
-  "voice": "Active",
-  "clauseStructure": "Simple",
+  "sentenceType": "陈述句",
+  "tense": "一般过去时",
+  "voice": "主动语态",
+  "clauseStructure": "简单句",
   "vocabulary": [
-    {"word": "difficult", "pos": "adjective", "meaning": "hard to do, requiring effort"}
+    {"word": "difficult", "pos": "形容词", "meaning": "困难的，需要努力的"}
   ]
 }
 
@@ -60,8 +62,8 @@ Rules:
 - translation is required - provide accurate Chinese translation
 - phrases and clauses arrays can be empty
 - vocabulary should include words that might be unfamiliar to English learners
-- Be precise with grammatical terminology
-- clauseStructure values: Simple, Compound, Complex, Compound-Complex`;
+- All explanations, types, and roles MUST be in Chinese
+- clauseStructure values: 简单句, 并列句, 复合句, 并列复合句`;
 
 /**
  * Build user prompt for parsing a sentence

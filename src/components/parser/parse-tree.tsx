@@ -16,7 +16,7 @@ const nodeColors = [
   { primary: "#b45309", bg: "#fef3c7", label: "补语" },    // amber-600 / amber-100
 ];
 
-export function ParseTree({ data }: ParseTreeProps) {
+const ParseTree = ({ data }: ParseTreeProps) => {
   const { subject, verb, object, complement } = data;
 
   const nodes = [
@@ -80,7 +80,7 @@ export function ParseTree({ data }: ParseTreeProps) {
       </div>
     </motion.div>
   );
-}
+};
 
 interface TreeNodeProps {
   node: {
@@ -94,7 +94,7 @@ interface TreeNodeProps {
   total: number;
 }
 
-function TreeNode({ node, index, total }: TreeNodeProps) {
+const TreeNode = ({ node, index, total }: TreeNodeProps) => {
   const [hovered, setHovered] = useState(false);
   const colors = nodeColors[node.colorIndex];
 
@@ -179,4 +179,6 @@ function TreeNode({ node, index, total }: TreeNodeProps) {
       </motion.div>
     </motion.div>
   );
-}
+};
+
+export { ParseTree };

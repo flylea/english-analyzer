@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useRef, type FormEvent } from "react";
+import { useState, useRef, type SubmitEvent} from "react";
 import { motion } from "motion/react";
 import { Button } from "@/components/ui/button";
 
@@ -9,32 +9,32 @@ interface SentenceInputProps {
   isLoading: boolean;
 }
 
-export function SentenceInput({ onSubmit, isLoading }: SentenceInputProps) {
+const SentenceInput = ({ onSubmit, isLoading }: SentenceInputProps) => {
   const [value, setValue] = useState("");
   const textareaRef = useRef<HTMLTextAreaElement>(null);
 
-  function handleSubmit(e: FormEvent) {
+  const handleSubmit = (e: SubmitEvent) => {
     e.preventDefault();
     const trimmed = value.trim();
     if (!trimmed || isLoading) return;
     onSubmit(trimmed);
-  }
+  };
 
-  function handleChange(e: React.ChangeEvent<HTMLTextAreaElement>) {
+  const handleChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
     setValue(e.target.value);
     const textarea = e.target;
     textarea.style.height = "auto";
     textarea.style.height = `${textarea.scrollHeight}px`;
-  }
+  };
 
-  function handleKeyDown(e: React.KeyboardEvent<HTMLTextAreaElement>) {
+  const handleKeyDown = (e: React.KeyboardEvent<HTMLTextAreaElement>) => {
     if (e.key === "Enter" && !e.shiftKey) {
       e.preventDefault();
       const trimmed = value.trim();
       if (!trimmed || isLoading) return;
       onSubmit(trimmed);
     }
-  }
+  };
 
   return (
     <motion.form
@@ -56,7 +56,7 @@ export function SentenceInput({ onSubmit, isLoading }: SentenceInputProps) {
           onKeyDown={handleKeyDown}
           placeholder="输入英文句子，按 Enter 分析..."
           disabled={isLoading}
-          className="w-full min-h-[100px] resize-none bg-transparent border-none outline-none
+          className="w-full min-h-25 resize-none bg-transparent border-none outline-none
             text-lg text-foreground placeholder:text-muted-foreground
             leading-relaxed focus:ring-0
             disabled:opacity-50 disabled:cursor-not-allowed"
@@ -67,7 +67,7 @@ export function SentenceInput({ onSubmit, isLoading }: SentenceInputProps) {
         <div className="flex items-center justify-between mt-4 pt-4 border-t border-border">
           <div className="flex items-center gap-3">
             <span className="text-xs text-muted-foreground">
-              {value.length} / 500
+              {value.length} / 200
             </span>
             {value.trim() && (
               <motion.span
@@ -107,4 +107,6 @@ export function SentenceInput({ onSubmit, isLoading }: SentenceInputProps) {
       </div>
     </motion.form>
   );
-}
+};
+
+export { SentenceInput };
