@@ -34,21 +34,23 @@ export const PARSE_SYSTEM_PROMPT = `You are a professional English grammar analy
 Return ONLY valid JSON in this exact format:
 
 {
-  "subject": {"text": "主语", "type": "词性", "role": "语法作用"},
-  "verb": {"text": "动词", "type": "词性", "role": "语法作用"},
-  "object": {"text": "宾语", "type": "词性", "role": "语法作用"},
+  "subject": {"text": "主语", "type": "词性", "role": "语法作用（中文解释）"},
+  "verb": {"text": "动词", "type": "词性", "role": "语法作用（中文解释）"},
+  "object": {"text": "宾语", "type": "词性", "role": "语法作用（中文解释）"},
   "complement": null,
   "translation": "中文翻译",
-  "phrases": [],
-  "clauses": [],
+  "phrases": [{"text": "短语文本", "type": "短语类型", "role": "语法作用（中文解释）"}],
+  "clauses": [{"type": "从句类型", "content": "从句内容", "role": "语法作用（中文解释）"}],
   "sentenceType": "句型",
   "tense": "时态",
   "voice": "语态",
   "clauseStructure": "结构",
-  "vocabulary": [{"word": "单词", "pos": "词性", "meaning": "含义"}]
+  "vocabulary": [{"word": "单词", "pos": "词性", "meaning": "中文含义"}]
 }
 
 Important rules:
+- All role explanations MUST be in Chinese (语法作用)
+- All meaning explanations MUST be in Chinese (中文含义)
 - object and complement must be null (not omit)
 - Return ONLY JSON, no extra text
 - translation is required

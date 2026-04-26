@@ -57,7 +57,7 @@ const VocabularySection = ({ vocabulary }: VocabularySectionProps) => (
             <div className="flex-1 min-w-0">
               <div className="flex items-baseline gap-2 mb-1.5 flex-wrap">
                 <span
-                  className="text-lg font-medium transition-colors"
+                  className="text-base sm:text-lg font-medium transition-colors"
                   style={{ color: colors.primary }}
                 >
                   {item.word}

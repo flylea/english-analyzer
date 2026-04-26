@@ -34,7 +34,7 @@ const AnalysisReveal = ({ data, inputSentence }: AnalysisRevealProps) => (
 
       <TypewriterText
         text={inputSentence}
-        className="text-xl md:text-2xl text-foreground leading-snug font-medium"
+        className="text-xl sm:text-2xl text-foreground leading-snug font-medium"
       />
 
       <div className="mt-4 pt-4 border-t border-border flex items-center gap-4">

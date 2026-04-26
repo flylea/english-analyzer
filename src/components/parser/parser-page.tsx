@@ -50,7 +50,7 @@ const ParserPage = () => {
       </header>
 
       {/* ── Main ── */}
-      <div className="max-w-4xl mx-auto px-6 py-10">
+      <div className="max-w-4xl mx-auto px-5 py-5">
         {/* Input */}
         <section className="mb-8">
           <SentenceInput
