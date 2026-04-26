@@ -50,7 +50,7 @@ export async function POST(req: NextRequest) {
     );
   }
 
-  // 3. Parse and validate response with Zod
+  // 3. Parse and normalize DeepSeek response
   let parsedResponse: unknown;
 
   try {
@@ -66,6 +66,39 @@ export async function POST(req: NextRequest) {
       { error: "Failed to parse DeepSeek response" },
       { status: 502 }
     );
+  }
+
+  // Normalize DeepSeek response: map `function` -> `role`, `text` -> `content` for clauses
+  if (parsedResponse && typeof parsedResponse === "object") {
+    const normalize = (obj: Record<string, unknown>): Record<string, unknown> => {
+      const result: Record<string, unknown> = { ...obj };
+      if (Array.isArray(result.phrases)) {
+        result.phrases = result.phrases.map((p: Record<string, unknown>) => {
+          const phrase = { ...p };
+          if ("function" in phrase) {
+            phrase.role = phrase.function;
+            delete phrase.function;
+          }
+          return phrase;
+        });
+      }
+      if (Array.isArray(result.clauses)) {
+        result.clauses = result.clauses.map((c: Record<string, unknown>) => {
+          const clause = { ...c };
+          if ("function" in clause) {
+            clause.role = clause.function;
+            delete clause.function;
+          }
+          if ("text" in clause) {
+            clause.content = clause.text;
+            delete clause.text;
+          }
+          return clause;
+        });
+      }
+      return result;
+    };
+    parsedResponse = normalize(parsedResponse as Record<string, unknown>);
   }
 
   const validationResult = ParseSentenceResponseSchema.safeParse(
