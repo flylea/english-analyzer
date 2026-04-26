@@ -84,11 +84,15 @@ export async function POST(req: NextRequest) {
       }
       if (Array.isArray(result.clauses)) {
         result.clauses = result.clauses.map((c: Record<string, unknown>) => {
-          const clause = { ...c };
+          const clause: Record<string, unknown> = { ...c };
           if ("function" in clause) {
             clause.role = clause.function;
             delete clause.function;
           }
+          if ("structure" in clause && typeof clause.structure === "string") {
+            clause.role = clause.structure;
+          }
+          delete clause.structure;
           if ("text" in clause) {
             clause.content = clause.text;
             delete clause.text;

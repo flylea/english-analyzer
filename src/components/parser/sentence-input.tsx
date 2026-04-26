@@ -6,10 +6,12 @@ import { Button } from "@/components/ui/button";
 
 interface SentenceInputProps {
   onSubmit: (sentence: string) => void;
+  onClear: () => void;
   isLoading: boolean;
+  hasResult: boolean;
 }
 
-const SentenceInput = ({ onSubmit, isLoading }: SentenceInputProps) => {
+const SentenceInput = ({ onSubmit, onClear, isLoading, hasResult }: SentenceInputProps) => {
   const [value, setValue] = useState("");
   const textareaRef = useRef<HTMLTextAreaElement>(null);
 
@@ -17,6 +19,10 @@ const SentenceInput = ({ onSubmit, isLoading }: SentenceInputProps) => {
     e.preventDefault();
     const trimmed = value.trim();
     if (!trimmed || isLoading) return;
+    if (hasResult) {
+      onClear();
+      return;
+    }
     onSubmit(trimmed);
   };
 
@@ -54,7 +60,7 @@ const SentenceInput = ({ onSubmit, isLoading }: SentenceInputProps) => {
           value={value}
           onChange={handleChange}
           onKeyDown={handleKeyDown}
-          placeholder="输入英文句子，按 Enter 分析..."
+          placeholder="Enter an English sentence, press Enter to analyze..."
           disabled={isLoading}
           className="w-full min-h-25 resize-none bg-transparent border-none outline-none
             text-lg text-foreground placeholder:text-muted-foreground
@@ -75,7 +81,7 @@ const SentenceInput = ({ onSubmit, isLoading }: SentenceInputProps) => {
                 animate={{ opacity: 1 }}
                 className="text-[10px] text-muted-foreground bg-muted px-2 py-0.5 rounded"
               >
-                按 Enter 发送
+                Press Enter to send
               </motion.span>
             )}
           </div>
@@ -92,14 +98,21 @@ const SentenceInput = ({ onSubmit, isLoading }: SentenceInputProps) => {
                   transition={{ duration: 1, repeat: Infinity, ease: "linear" }}
                   className="w-3.5 h-3.5 border border-primary-foreground/30 border-t-primary-foreground rounded-full"
                 />
-                分析中
+                Analyzing
+              </>
+            ) : hasResult ? (
+              <>
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" className="shrink-0">
+                  <path d="M18 6L6 18M6 6l12 12" />
+                </svg>
+                Clear
               </>
             ) : (
               <>
                 <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" className="shrink-0">
                   <path d="M5 12h14M12 5l7 7-7 7" />
                 </svg>
-                分析
+                Analyze
               </>
             )}
           </Button>

@@ -48,7 +48,9 @@ const ParserPage = () => {
         <section className="mb-8">
           <SentenceInput
             onSubmit={parse}
+            onClear={reset}
             isLoading={state.status === "loading"}
+            hasResult={state.status === "success"}
           />
         </section>
 
