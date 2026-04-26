@@ -1,5 +1,6 @@
 "use client";
 
+import { useState } from "react";
 import { AnimatePresence, motion } from "motion/react";
 import { useParser } from "@/hooks/use-parser";
 import { SentenceInput } from "@/components/parser/sentence-input";
@@ -7,6 +8,12 @@ import { AnalysisReveal } from "@/components/parser/analysis-reveal";
 
 const ParserPage = () => {
   const { state, parse, reset } = useParser();
+  const [inputValue, setInputValue] = useState("");
+
+  const handleClear = () => {
+    setInputValue("");
+    reset();
+  };
 
   return (
     <main className="min-h-screen bg-background">
@@ -47,8 +54,10 @@ const ParserPage = () => {
         {/* Input */}
         <section className="mb-8">
           <SentenceInput
+            value={inputValue}
+            onChange={setInputValue}
             onSubmit={parse}
-            onClear={reset}
+            onClear={handleClear}
             isLoading={state.status === "loading"}
             hasResult={state.status === "success"}
           />

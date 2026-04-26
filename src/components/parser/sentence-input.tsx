@@ -1,18 +1,19 @@
 "use client";
 
-import { useState, useRef, type SubmitEvent} from "react";
+import { useRef, type SubmitEvent} from "react";
 import { motion } from "motion/react";
 import { Button } from "@/components/ui/button";
 
 interface SentenceInputProps {
+  value: string;
+  onChange: (value: string) => void;
   onSubmit: (sentence: string) => void;
   onClear: () => void;
   isLoading: boolean;
   hasResult: boolean;
 }
 
-const SentenceInput = ({ onSubmit, onClear, isLoading, hasResult }: SentenceInputProps) => {
-  const [value, setValue] = useState("");
+const SentenceInput = ({ value, onChange, onSubmit, onClear, isLoading, hasResult }: SentenceInputProps) => {
   const textareaRef = useRef<HTMLTextAreaElement>(null);
 
   const handleSubmit = (e: SubmitEvent) => {
@@ -27,7 +28,7 @@ const SentenceInput = ({ onSubmit, onClear, isLoading, hasResult }: SentenceInpu
   };
 
   const handleChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
-    setValue(e.target.value);
+    onChange(e.target.value);
     const textarea = e.target;
     textarea.style.height = "auto";
     textarea.style.height = `${textarea.scrollHeight}px`;
@@ -72,10 +73,19 @@ const SentenceInput = ({ onSubmit, onClear, isLoading, hasResult }: SentenceInpu
         {/* Bottom bar */}
         <div className="flex items-center justify-between mt-4 pt-4 border-t border-border">
           <div className="flex items-center gap-3">
-            <span className="text-xs text-muted-foreground">
+            <span className={`text-xs ${value.length > 200 ? "text-destructive" : "text-muted-foreground"}`}>
               {value.length} / 200
             </span>
-            {value.trim() && (
+            {value.length > 200 && (
+              <motion.span
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                className="text-[10px] text-destructive bg-destructive/10 px-2 py-0.5 rounded"
+              >
+                Max 200 characters
+              </motion.span>
+            )}
+            {value.trim() && value.length <= 200 && (
               <motion.span
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
