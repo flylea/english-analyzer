@@ -29,7 +29,6 @@ export async function POST(req: NextRequest) {
   let rawResponse: string;
 
   try {
-    // @ts-expect-error - reasoning_effort is a DeepSeek-specific param
     const completion = await deepseek.client.chat.completions.create({
       model: "deepseek-v4-pro",
       messages: [
