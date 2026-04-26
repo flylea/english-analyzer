@@ -41,8 +41,8 @@ export const PhraseSchema = z.object({
  */
 export const ParseSentenceResponseSchema = z.object({
   // Core sentence components
-  subject: ComponentSchema,
-  verb: ComponentSchema,
+  subject: ComponentSchema.nullable().optional().describe("Subject of the sentence"),
+  verb: ComponentSchema.nullable().optional().describe("Main verb of the sentence"),
   object: ComponentSchema.nullable().optional().describe("Direct object, if present"),
   complement: ComponentSchema.nullable().optional().describe("Subject or object complement"),
 

@@ -14,18 +14,22 @@ const StructureVisualizer = ({ data }: StructureVisualizerProps) => (
       <div className="absolute -left-px top-0 bottom-0 w-1 bg-linear-to-b from-sky-400 via-sky-500 to-sky-400 rounded-full" />
 
       <div className="space-y-5">
-        <ComponentBlock
-          label="Subject"
-          data={data.subject}
-          accent="text-sky-700"
-          labelBg="bg-sky-100 text-sky-700"
-        />
-        <ComponentBlock
-          label="Verb"
-          data={data.verb}
-          accent="text-violet-700"
-          labelBg="bg-violet-100 text-violet-700"
-        />
+        {data.subject && (
+          <ComponentBlock
+            label="Subject"
+            data={data.subject}
+            accent="text-sky-700"
+            labelBg="bg-sky-100 text-sky-700"
+          />
+        )}
+        {data.verb && (
+          <ComponentBlock
+            label="Verb"
+            data={data.verb}
+            accent="text-violet-700"
+            labelBg="bg-violet-100 text-violet-700"
+          />
+        )}
         {data.object && (
           <ComponentBlock
             label="Object"
