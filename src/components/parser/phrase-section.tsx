@@ -60,7 +60,7 @@ const PhraseSection = ({ phrases }: PhraseSectionProps) => {
             >
               <button
                 onClick={() => setExpanded(isExpanded ? null : i)}
-                className="w-full flex items-center gap-3 p-4 rounded-lg border-l-[3px] hover:bg-muted/50 transition-all duration-200 text-left group"
+                className="w-full flex flex-col sm:flex-row items-start sm:items-center gap-2 sm:gap-3 p-4 rounded-lg border-l-[3px] hover:bg-muted/50 transition-all duration-200 text-left group"
                 style={{
                   borderLeftColor: colors.color,
                   borderTopWidth: "1px",
@@ -69,31 +69,29 @@ const PhraseSection = ({ phrases }: PhraseSectionProps) => {
                   borderColor: "var(--border)",
                 }}
               >
-                {/* Phrase text */}
-                <div className="flex-1 min-w-0">
-                  <span className="text-lg text-foreground group-hover:text-foreground transition-colors">
-                    {phrase.text}
-                  </span>
-                </div>
-
-                {/* Type badge */}
-                <span
-                  className="shrink-0 text-xs px-2 py-1 rounded font-medium"
-                  style={{ color: colors.color, backgroundColor: colors.bg }}
-                >
-                  {phrase.type}
+                {/* Phrase text - full width on mobile */}
+                <span className="text-base sm:text-lg text-foreground group-hover:text-foreground transition-colors flex-1 w-full">
+                  {phrase.text}
                 </span>
 
-                {/* Expand icon */}
-                <motion.div
-                  animate={{ rotate: isExpanded ? 90 : 0 }}
-                  transition={{ duration: 0.2 }}
-                  className="shrink-0 text-muted-foreground"
-                >
-                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                    <polyline points="9 18 15 12 9 6" />
-                  </svg>
-                </motion.div>
+                {/* Type badge and expand icon - below text on mobile, right side on desktop */}
+                <div className="flex items-center gap-2 self-stretch sm:self-auto">
+                  <span
+                    className="text-xs px-2 py-1 rounded font-medium"
+                    style={{ color: colors.color, backgroundColor: colors.bg }}
+                  >
+                    {phrase.type}
+                  </span>
+                  <motion.div
+                    animate={{ rotate: isExpanded ? 90 : 0 }}
+                    transition={{ duration: 0.2 }}
+                    className="ml-auto text-muted-foreground"
+                  >
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                      <polyline points="9 18 15 12 9 6" />
+                    </svg>
+                  </motion.div>
+                </div>
               </button>
 
               {/* Expanded role description */}
@@ -103,7 +101,7 @@ const PhraseSection = ({ phrases }: PhraseSectionProps) => {
                 transition={{ duration: 0.2 }}
                 className="overflow-hidden"
               >
-                <div className="px-4 pt-3 pb-1">
+                <div className="pt-3">
                   <div
                     className="p-4 rounded-lg"
                     style={{ backgroundColor: colors.bg }}

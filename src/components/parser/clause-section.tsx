@@ -67,7 +67,7 @@ const ClauseSection = ({ clauses }: ClauseSectionProps) => (
             </span>
 
             {/* Clause content */}
-            <p className="text-lg text-foreground mb-2 leading-snug font-medium">
+            <p className="text-base sm:text-lg text-foreground mb-2 leading-snug font-medium">
               {clause.content}
             </p>
 

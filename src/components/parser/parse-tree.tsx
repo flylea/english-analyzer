@@ -70,7 +70,7 @@ const ParseTree = ({ data }: ParseTreeProps) => {
       {/* Node grid */}
       <div className="relative">
         {/* Vertical connector line */}
-        <div className="absolute left-6 top-0 bottom-0 w-px bg-border" />
+        <div className="absolute left-4 sm:left-6 top-0 bottom-0 w-px bg-border" />
 
         <div className="space-y-4">
           {nodes.map((node, i) => (
